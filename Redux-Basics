@@ -387,3 +387,52 @@ const addToDo = (todo) => {
 const store10 = Redux.createStore(immutableReducer);
 
 store10.dispatch(addToDo(todo));
+
+
+// Remove an item from an array
+
+const immutableReducer2 = (state = [0,1,2,3,4,5], action) => {
+  switch(action.type) {
+    case 'REMOVE_ITEM':
+      return [...state.slice(0, action.index), ...state.slice(action.index + 1, state.length)];
+    default:
+      return state;
+  }
+};
+
+const removeItem = (index) => {
+  return {
+    type: 'REMOVE_ITEM',
+    index
+  };
+};
+
+const store10 = Redux.createStore(immutableReducer2);
+
+store10.dispatch(removeItem());
+
+// Copy an Object with Object.assign
+
+const defaultState11 = {
+  user: 'CamperBot',
+  status: 'offline',
+  friends: '732,982',
+  community: 'freeCodeCamp'
+};
+
+const immutableReducer11 = (state = defaultState11, action) => {
+  switch(action.type) {
+    case 'ONLINE':
+      return Object.assign({}, state, {status: 'online'});
+    default:
+      return state;
+  }
+};
+
+const wakeUp = () => {
+  return {
+    type: 'ONLINE'
+  }
+};
+
+const store11 = Redux.createStore(immutableReducer11);
