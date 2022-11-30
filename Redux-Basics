@@ -324,3 +324,66 @@ const store8 = Redux.createStore(
   asyncDataReducer,
   Redux.applyMiddleware(ReduxThunk.default)
 );
+
+// Write a counter with Redux
+
+const INCREMENT2 = 'INCREMENT2';
+const DECREMENT2 = 'DECREMENT2';
+
+const counterReducer2 = (state = 0, action) => {
+  switch(action.type) {
+    case INCREMENT2:
+      return state + 1;
+    case DECREMENT2:
+      return state - 1;
+    default:
+      return state;
+  }
+};
+
+const incAction = () => {
+  return {
+    type: INCREMENT2
+  };
+};
+
+const decAction = () => {
+  return {
+    type: DECREMENT2
+  };
+};
+
+const store9 = Redux.createStore(counterReducer);
+
+store9.dispatch(incAction());
+
+// Never mutate state
+
+const ADD_TO_DO = 'ADD_TO_DO';
+
+const todos = [
+  'Go to the store',
+  'Clean the house',
+  'Cook dinner',
+  'Learn to code',
+];
+
+const immutableReducer = (state = todos, action) => {
+  switch(action.type) {
+    case ADD_TO_DO:
+      return [...state, action.todo];
+    default:
+      return state;
+  }
+};
+
+const addToDo = (todo) => {
+  return {
+    type: ADD_TO_DO,
+    todo
+  };
+};
+
+const store10 = Redux.createStore(immutableReducer);
+
+store10.dispatch(addToDo(todo));
