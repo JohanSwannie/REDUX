@@ -218,11 +218,6 @@ const authReducer = (state = {authenticated: false}, action) => {
   }
 };
 
-const rootReducer = Redux.combineReducers({
-  count: counterReducer,
-  auth: authReducer
-});
-
 const store6 = Redux.createStore(rootReducer);
 
 const loginUser6 = () => {
@@ -241,6 +236,11 @@ store6.dispatch(loginUser6());
 store6.dispatch(logoutUser6());
 store6.dispatch(counterIncrement6());
 store6.dispatch(counterDecrement6());
+
+const rootReducer = Redux.combineReducers({
+  count: counterReducer,
+  auth: authReducer
+});
 
 // Send action data to the Store
 
@@ -388,7 +388,6 @@ const store10 = Redux.createStore(immutableReducer);
 
 store10.dispatch(addToDo(todo));
 
-
 // Remove an item from an array
 
 const immutableReducer2 = (state = [0,1,2,3,4,5], action) => {
@@ -432,7 +431,9 @@ const immutableReducer11 = (state = defaultState11, action) => {
 const wakeUp = () => {
   return {
     type: 'ONLINE'
-  }
+  };
 };
 
 const store11 = Redux.createStore(immutableReducer11);
+
+store11.dispatch(wakeUp());
