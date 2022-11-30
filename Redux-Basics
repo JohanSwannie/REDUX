@@ -408,7 +408,7 @@ const removeItem = (index) => {
 
 const store10 = Redux.createStore(immutableReducer2);
 
-store10.dispatch(removeItem());
+store10.dispatch(removeItem(2));
 
 // Copy an Object with Object.assign
 
