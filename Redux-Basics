@@ -1,0 +1,326 @@
+// Set up a reducer with the state of the application
+
+const reducer = (state = 5) => {
+  return state;
+};
+
+// Assign a variable to the create store method
+
+const store = Redux.createStore(reducer);
+// OR
+const store = Redux.createStore((state = 5)  => state);
+
+// Retrieve the state from the store and assign it to a variable
+
+const currentState = store.getState();
+
+// Create a Redux Dispatching action for the purpose of state update
+
+const action = {
+  type: 'LOGIN'
+};
+
+// Define an action creator in the form of a function so that the Redux store can update its state
+
+function actionCreator() {
+  return action;
+}
+
+// Dispatch Actions to the Redux Store
+
+store.dispatch(actionCreator());
+
+// Exercise 1 - Create the Redux Store, define a Redux action inside an action creator and dispatch it to the Redux store
+
+const store1 = Redux.createStore(
+  (state = {login: false}) => state
+);
+
+const loginAction = () => {
+  return {
+    type: 'LOGIN'
+  };
+};
+
+store1.dispatch(loginAction());
+
+// Exercise 2 - Handle an action in the Redux Store with an if statement
+
+const defaultState = {
+    login: false
+};
+
+const reducer2 = (state = defaultState, action) => {
+  if (action.type === 'LOGIN') {
+    return {login: true};
+  } else {
+    return state;
+  }
+};
+
+const store2 = Redux.createStore(reducer);
+
+const loginAction2 = () => {
+  return {
+    type: 'LOGIN'
+  };
+};
+
+store2.dispatch(loginAction2());
+
+// Exercise 3 - Handle an action in the Redux Store with a switch statement
+
+const defaultState3 = {
+  authenticated: false
+};
+
+const authReducer3 = (state = defaultState3, action) => {
+  switch(action.type) {
+    case 'LOGIN':
+      return {authenticated: true};
+    case 'LOGOUT':
+      return {authenticated: false};
+    default:
+      return state;
+  }
+};
+
+const store3 = Redux.createStore(authReducer3);
+
+const loginUser = () => {
+  return {
+    type: 'LOGIN'
+  };
+};
+
+const logoutUser = () => {
+  return {
+    type: 'LOGOUT'
+  };
+};
+
+store3.dispatch(loginUser());
+store3.dispatch(logoutUser());
+
+// Exercise 4 - Use const for action types
+
+const LOGIN = 'LOGIN';
+const LOGOUT = 'LOGOUT';
+
+const defaultState4 = {
+  authenticated: false
+};
+
+const authReducer4 = (state = defaultState4, action) => {
+  switch (action.type) {
+    case LOGIN:
+      return {
+        authenticated: true
+      };
+    case LOGOUT:
+      return {
+        authenticated: false
+      };
+
+    default:
+      return state;
+  }
+};
+
+const store4 = Redux.createStore(authReducer4);
+
+const loginUser4 = () => {
+  return {
+    type: LOGIN
+  };
+};
+
+const logoutUser4 = () => {
+  return {
+    type: LOGOUT
+  };
+};
+
+store4.dispatch(loginUser4());
+store4.dispatch(logoutUser4());
+
+// Register a Store Listener
+
+const ADD = 'ADD';
+
+const reducer5 = (state = 0, action) => {
+  switch(action.type) {
+    case ADD:
+      return state + 1;
+    default:
+      return state;
+  }
+};
+
+const store5 = Redux.createStore(reducer5);
+
+let count = 0;
+
+const incrementCounter = () => count ++;
+
+store5.subscribe(incrementCounter);
+
+store5.dispatch({type: ADD});
+console.log(count);
+store5.dispatch({type: ADD});
+console.log(count);
+store5.dispatch({type: ADD});
+console.log(count);
+
+// Combine Multiple Reducers
+
+const INCREMENT = 'INCREMENT';
+const DECREMENT = 'DECREMENT';
+
+const counterReducer = (state = 0, action) => {
+  switch(action.type) {
+    case INCREMENT:
+      return state + 1;
+    case DECREMENT:
+      return state - 1;
+    default:
+      return state;
+  }
+};
+
+const counterIncrement6 = () => {
+  return {
+    type: INCREMENT
+  };
+};
+
+const counterDecrement6 = () => {
+  return {
+    type: DECREMENT
+  };
+};
+
+const LOG_IN = 'LOGIN';
+const LOG_OUT = 'LOGOUT';
+
+const authReducer = (state = {authenticated: false}, action) => {
+  switch(action.type) {
+    case LOG_IN:
+      return {
+        authenticated: true
+      };
+    case LOG_OUT:
+      return {
+        authenticated: false
+      };
+    default:
+      return state;
+  }
+};
+
+const rootReducer = Redux.combineReducers({
+  count: counterReducer,
+  auth: authReducer
+});
+
+const store6 = Redux.createStore(rootReducer);
+
+const loginUser6 = () => {
+  return {
+    type: LOG_IN
+  };
+};
+
+const logoutUser6 = () => {
+  return {
+    type: LOG_OUT
+  };
+};
+
+store6.dispatch(loginUser6());
+store6.dispatch(logoutUser6());
+store6.dispatch(counterIncrement6());
+store6.dispatch(counterDecrement6());
+
+// Send action data to the Store
+
+const ADD_NOTE = 'ADD_NOTE';
+
+const notesReducer = (state = 'We might still go on holiday', action) => {
+  switch(action.type) {
+    case ADD_NOTE:
+      return action.text;
+    default:
+      return state;
+  }
+};
+
+const addNoteText = (textNote) => {
+  return {
+    type: ADD_NOTE,
+    text: textNote
+  };
+};
+
+const store7 = Redux.createStore(notesReducer);
+
+console.log(store7.getState());
+store.dispatch(addNoteText('We are going on a summer holiday'));
+console.log(store7.getState());
+
+// Use Middleware to handle Asynchronous functions
+
+const REQUESTING_DATA = 'REQUESTING_DATA';
+const RECEIVED_DATA = 'RECEIVED_DATA';
+
+const requestingData = () => {
+  return {
+    type: REQUESTING_DATA
+  } ;
+};
+
+const receivedData = (data) => {
+   return {
+     type: RECEIVED_DATA,
+     users: data.users
+   };
+ };
+
+const handleAsync = () => {
+  return function(dispatch) {
+      dispatch(requestingData());
+      setTimeout(function() {
+        let data = {
+          users: ['Jeff', 'William', 'Alice']
+        };
+      dispatch(receivedData(data));
+    }, 2500);
+  };
+};
+
+const defaultState8 = {
+  fetching: false,
+  users: []
+};
+
+const asyncDataReducer = (state = defaultState8, action) => {
+  switch(action.type) {
+    case REQUESTING_DATA:
+      return {
+        fetching: true,
+        users: []
+      };
+    case RECEIVED_DATA:
+      return {
+        fetching: false,
+        users: action.users
+      };
+    default:
+      return state;
+  }
+};
+
+const store8 = Redux.createStore(
+  asyncDataReducer,
+  Redux.applyMiddleware(ReduxThunk.default)
+);
