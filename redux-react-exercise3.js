@@ -1,5 +1,4 @@
-// Exercise to create actions, a reducer, a store in Redux, map state to props,
-// map dispatch to props, use Provider to connect Redux to React, connect Redux to the
+// Exercise to create actions, a reducer, a store in Redux, map state to props, map dispatch to props, use Provider to connect Redux to React, connect Redux to the
 // Messages Application by using connect and Extract Local State into Redux.
 
 const ADD = 'ADD';
