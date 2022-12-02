@@ -1,9 +1,6 @@
-// Getting Started with React Redux
-// Add a constructor to this component and initialize it with a state that has
-// two properties: input, that's set to an empty string, and messages, that's set
-// to an empty array. Then add an input, a button and a UL tag to handle input messages.
-// When input is entered and submitted, then render the input to a LI tag inside the UL tag.
-// Use Provider to Connect Redux to React
+// Add a constructor to a component and initialize it with a state that has two properties: input, that's set to an empty string, and messages, that's set
+// to an empty array. Then add an input, a button and a UL tag to handle input messages. When input is entered and submitted, then render the input to a LI 
+// tag inside the UL tag. Use Provider to Connect Redux to React.
 
 const ADD = 'ADD';
 
