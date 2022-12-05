@@ -2,6 +2,13 @@
 // to an empty array. Then add an input, a button and a UL tag to handle input messages. When input is entered and submitted, then render the input to a LI 
 // tag inside the UL tag. Use Provider to Connect Redux to React.
 
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider, connect } from 'react-redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './redux/reducers';
+
 const ADD = 'ADD';
 
 const addMessage = (message) => {
@@ -24,6 +31,8 @@ const messageReducer = (state = [], action) => {
 };
 
 const store = Redux.createStore(messageReducer);
+
+store.dispatch(addMessage(message));
 
 class DisplayMessages extends React.Component {
   constructor(props) {
