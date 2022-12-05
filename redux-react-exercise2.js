@@ -1,6 +1,13 @@
 // Exercise to create actions, a reducer, a store in Redux, map state to props, map dispatch to props, use Provider to connect Redux to React and connect Redux
 // to the Messages Application.
 
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider, connect } from 'react-redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './redux/reducers';
+
 const ADD = 'ADD';
 
 const addMessage = (message) => {
